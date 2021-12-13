@@ -8,6 +8,7 @@ import { CityEditComponent } from './city-edit/city-edit.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { CountryEditComponent } from './country-edit/country-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -21,6 +22,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), AngularMaterialModule, CommonModule, 
     ReactiveFormsModule, MatSelectModule],
   exports: [RouterModule],
-  declarations: [MyCitiesComponent, HomeComponent, CityEditComponent]
+  declarations: [MyCitiesComponent, HomeComponent, CityEditComponent, CountryEditComponent]
 })
 export class AppRoutingModule { }
