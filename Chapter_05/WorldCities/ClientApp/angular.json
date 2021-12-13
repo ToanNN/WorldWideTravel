@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "progress": true,            
+            "progress": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,7 +39,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,              
+              "sourceMap": false,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -145,5 +145,8 @@
       }
     }
   },
-  "defaultProject": "WorldCities"
+  "defaultProject": "WorldCities",
+  "cli": {
+    "analytics": "c89ea579-e7ad-41d1-8e0b-5db10cfec0d4"
+  }
 }
