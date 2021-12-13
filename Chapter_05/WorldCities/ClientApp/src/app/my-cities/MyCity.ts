@@ -3,4 +3,5 @@ export interface MyCity{
     name:string;
     lat:number;
     lon:number;
+    countryId: number;
 }
