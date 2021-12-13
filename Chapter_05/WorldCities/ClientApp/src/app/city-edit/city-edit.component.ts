@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { City } from '../cities/city';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators';
 import { Country } from '../countries/country';
 import { MyCity } from '../my-cities/MyCity';
 
@@ -29,7 +30,7 @@ export class CityEditComponent implements OnInit {
       lat: new FormControl('', Validators.required),
       lon: new FormControl('', Validators.required),
       countryId: new FormControl('', Validators.required)
-    });
+    }, null, this.doesCityExist());
     this.loadData();
   }
 
@@ -55,7 +56,7 @@ export class CityEditComponent implements OnInit {
       .set("pageIndex", "0")
       .set("pageSize", "9999")
       .set("sortColumn", "name")
-      .set("sortOrder","asc");
+      .set("sortOrder", "asc");
 
     this.http.get<any>(url, { params })
       .subscribe(res => {
@@ -79,11 +80,35 @@ export class CityEditComponent implements OnInit {
           err => console.error(err));
     } else {
       let url = this.baseUrl + "api/cities";
-      this.http.post<City>(url, city)
+      this.http.post<MyCity>(url, city)
         .subscribe(x => {
           console.log('Added a new city ' + x.id);
           this.router.navigate(['/cities']);
         }, err => console.error(err));
     }
+  }
+  doesCityExist(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<{ [key: string]: any | null }> => {
+      let city = <MyCity>{};
+      
+      city.name = this.form.get("name").value
+      city.countryId = +this.form.get("countryId").value;
+
+      let params = new HttpParams()
+      .set("cityName", city.name)
+      .set("countryId", city.countryId.toString())
+      var url = this.baseUrl + "api/Cities/doescityexist";
+      return this.http.get<boolean>(url, {params}).pipe(map(result => {
+        return (result ? { cityExists: true } : null);
+      }));
+    }
+  }
+
+  getCountryName(countryId: number){
+      let country = this.countries.find(x=> x.id === countryId);
+      if(country){
+          return country.name;
+      }
+      return "";
   }
 }

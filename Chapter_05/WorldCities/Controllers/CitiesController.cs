@@ -99,6 +99,12 @@ namespace WorldCities.Controllers
 
             return CreatedAtAction("GetCity", new { id = city.Id }, city);
         }
+        
+        [HttpGet]
+        [Route("doescityexist")]
+        public async Task<ActionResult<bool>> DoesCityExist(string cityName, int countryId){
+                return Ok(await _context.Cities.Where(x=> x.CountryId == countryId && x.Name == cityName).AnyAsync());
+        }
 
         // DELETE: api/Cities/5
         [HttpDelete("{id}")]

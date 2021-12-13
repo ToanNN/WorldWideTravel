@@ -18,7 +18,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), AngularMaterialModule, CommonModule, ReactiveFormsModule, MatSelectModule],
+  imports: [RouterModule.forRoot(routes), AngularMaterialModule, CommonModule, 
+    ReactiveFormsModule, MatSelectModule],
   exports: [RouterModule],
   declarations: [MyCitiesComponent, HomeComponent, CityEditComponent]
 })
