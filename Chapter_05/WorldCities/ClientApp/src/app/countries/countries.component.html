@@ -40,8 +40,6 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-﻿
-<!-- Pagination directive -->
 <mat-paginator [hidden]="!countries"
     (page)="getData($event)"
     [pageSize]="10"

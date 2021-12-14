@@ -121,5 +121,20 @@ namespace WorldCities.Controllers
         {
             return _context.Countries.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        [Route("isduplicatevalue")]
+        public async Task<ActionResult<bool>> IsDuplicateValue(int countryId, string fieldName, string fieldValue)
+        {
+            return fieldName.ToLower() switch
+            {
+                "name" => await _context.Countries.AnyAsync(c => c.Name == fieldValue && c.Id != countryId),
+                "iso2" => await _context.Countries.AnyAsync(
+c => c.ISO2 == fieldValue && c.Id != countryId),
+                "iso3" => await _context.Countries.AnyAsync(
+c => c.ISO3 == fieldValue && c.Id != countryId),
+                _ => false,
+            };
+        }
     }
 }
