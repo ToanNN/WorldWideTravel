@@ -15,6 +15,8 @@ const routes: Routes = [
   { path: 'countries', component: CountriesComponent },
   { path: 'city/:id', component: CityEditComponent },
   { path: 'city', component: CityEditComponent },
+  { path: 'country/:id', component: CountryEditComponent },
+  { path: 'country', component: CountryEditComponent },
 ];
 
 @NgModule({
